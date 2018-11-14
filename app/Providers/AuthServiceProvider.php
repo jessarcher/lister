@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Laravel\Horizon\Horizon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -25,6 +27,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Horizon::auth(function ($request) {
+            return Auth::user()->is_admin === true;
+        });
     }
 }

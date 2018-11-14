@@ -15,6 +15,10 @@
                     @endif
 
                     You are logged in!
+
+                    @can('administrate')
+                        <div>You are also an administrator</div>
+                    @endcan
                 </div>
             </div>
         </div>
