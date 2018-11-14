@@ -28,7 +28,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Horizon::auth(function ($request) {
-            return Auth::user()->is_admin === true;
+            return Auth::user() && Auth::user()->isAdmin();
         });
     }
 }

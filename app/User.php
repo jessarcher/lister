@@ -39,4 +39,14 @@ class User extends Authenticatable
     protected $casts = [
         'is_admin' => 'bool',
     ];
+
+    /**
+     * Is this user an admin
+     *
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->is_admin === true;
+    }
 }
