@@ -11,5 +11,15 @@ const mix = require('laravel-mix');
  |
  */
 
+mix.sass('resources/sass/app.scss', 'public/css');
+
 mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+    .extract(['vue']);
+
+if (mix.inProduction()) {
+    mix.version()
+    mix.disableNotifications();
+} else {
+    mix.sourceMaps();
+    mix.browserSync('lister.test');
+}
