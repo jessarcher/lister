@@ -36,7 +36,7 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $item = (new Item)->forceFill([
-            'text' => $request->input('text'),
+            'name' => $request->input('name'),
             'created_by' => Auth::user()->id,
             'updated_by' => Auth::user()->id,
         ]);

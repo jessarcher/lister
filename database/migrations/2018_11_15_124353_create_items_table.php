@@ -17,7 +17,7 @@ class CreateItemsTable extends Migration
             $table->increments('id');
             $table->uuid('uuid');
 
-            $table->text('text');
+            $table->text('name');
 
             $table->unsignedInteger('created_by');
             $table->timestamp('created_at')->useCurrent();

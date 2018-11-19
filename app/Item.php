@@ -12,7 +12,7 @@ class Item extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
-        'text',
+        'name',
         'created_at',
         'created_by',
         'updated_at',
