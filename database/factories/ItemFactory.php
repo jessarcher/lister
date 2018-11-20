@@ -14,6 +14,13 @@ $factory->define(App\Item::class, function (Faker $faker) {
         'updated_by' => function () {
             return factory(App\User::class)->create()->id;
         },
+        'completed_at' => null,
+        'completed_by' => null,
+    ];
+});
+
+$factory->state(App\Item::class, 'complete', function ($faker) {
+    return [
         'completed_at' => $faker->datetime,
         'completed_by' => function () {
             return factory(App\User::class)->create()->id;
