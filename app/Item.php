@@ -36,4 +36,14 @@ class Item extends Model
     {
         return 'uuid';
     }
+
+    /**
+     * Is the item complete?
+     *
+     * @return bool
+     */
+    public function isComplete(): bool
+    {
+        return ! empty($this->completed_at);
+    }
 }

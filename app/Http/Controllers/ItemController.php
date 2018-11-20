@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Item;
+use App\Http\Resources\Item as ItemResource;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -14,7 +15,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return Item::all();
+        return ItemResource::collection(Item::orderBy('order')->get());
     }
 
     /**
