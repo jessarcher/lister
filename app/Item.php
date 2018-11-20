@@ -13,6 +13,7 @@ class Item extends Model
 
     protected $fillable = [
         'name',
+        'order',
         'created_at',
         'created_by',
         'updated_at',

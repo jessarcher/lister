@@ -19,6 +19,8 @@ class CreateItemsTable extends Migration
 
             $table->text('name');
 
+            $table->integer('order')->default(0);
+
             $table->unsignedInteger('created_by');
             $table->timestamp('created_at')->useCurrent();
 
