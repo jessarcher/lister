@@ -8,8 +8,8 @@
             Add
         </button>
 
-        <draggable v-model="items">
-            <transition-group name="list">
+        <draggable v-model="items" :options="{animation: 150}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
+            <transition-group :name="!drag? 'list' : null">
                 <list-item v-for="item in items"
                     :key="item.id"
                     v-bind.sync="item"
@@ -23,15 +23,22 @@
 </template>
 
 <style>
-.list-item {
-  transition: all 0.3s;
+.list-move {
+    transition: transform 0.3s;
 }
-.list-enter, .list-leave-to {
-  opacity: 0;
-  transform: translateX(30px);
+.list-enter-active, .list-leave-active {
+    transition: all 0.3s;
+}
+.list-enter {
+    opacity: 0;
+    transform: translateY(-30px);
+}
+.list-leave-to {
+    opacity: 0;
+    transform: translateX(30px);
 }
 .list-leave-active {
-  position: absolute;
+    position: absolute;
 }
 </style>
 
