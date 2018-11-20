@@ -91,9 +91,5 @@ export default {
             .get('/items')
             .then(response => this.items = response.data.data);
     },
-
-    mounted() {
-        console.log('Component mounted.')
-    },
 }
 </script>
