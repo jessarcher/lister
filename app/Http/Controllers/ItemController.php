@@ -45,7 +45,7 @@ class ItemController extends Controller
 
         $item->save();
 
-        return $item;
+        return new ItemResource($item);
     }
 
     /**
@@ -56,7 +56,7 @@ class ItemController extends Controller
      */
     public function show(Item $item)
     {
-        return $item;
+        return new ItemResource($item);
     }
 
     /**
@@ -86,7 +86,7 @@ class ItemController extends Controller
 
         $item->save();
 
-        return $item;
+        return new ItemResource($item);
     }
 
     /**
