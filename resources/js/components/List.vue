@@ -88,7 +88,7 @@ export default {
 
     created() {
         axios
-            .get('/items')
+            .get('/api/items')
             .then(response => this.items = response.data.data);
     },
 }
