@@ -10,11 +10,7 @@
 
         <draggable v-model="items" :options="{animation: 150}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
             <transition-group :name="!drag? 'list' : null">
-                <list-item v-for="item in items"
-                    :key="item.id"
-                    v-bind.sync="item"
-                    v-on:delete-item="deleteItem"
-                ></list-item>
+                <list-item v-for="item in items" :key="item.id" :item="item"></list-item>
             </transition-group>
         </draggable>
 
@@ -52,44 +48,47 @@ export default {
 
     data() {
         return {
+            drag: false,
             newItemName: '',
-            items: [],
-            createdItems: 0,
         }
     },
 
     computed: {
+        items: {
+            get() {
+                return this.$store.state.items;
+            },
+
+            set(items) {
+                this.$store.dispatch('updateItems', items)
+            }
+        }
     },
 
     watch: {
-        items() {
-            this.items.forEach((item, index) => {
-                item.order = index + 1;
-            });
-        },
+        // items() {
+        //     this.items.forEach((item, index) => {
+        //         item.order = index + 1;
+        //     });
+        // },
     },
 
     methods: {
         addItem() {
-            this.items.unshift({
-                id: this.createdItems,
+            if (this.newItemName.trim().length == 0) {
+                return;
+            }
+
+            this.$store.dispatch('addItem', {
                 name: this.newItemName,
-                complete: false,
-            });
+            })
 
-            this.createdItems++;
             this.newItemName = '';
-        },
-
-        deleteItem(id) {
-            this.items = this.items.filter(item => item.id !== id);
         },
     },
 
     created() {
-        axios
-            .get('/api/items')
-            .then(response => this.items = response.data.data);
+        this.$store.dispatch('fetchItems');
     },
 }
 </script>

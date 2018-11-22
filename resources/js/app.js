@@ -32,6 +32,9 @@ Vue.component('list-item', require('./components/ListItem.vue'));
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import store from './store';
+
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    store,
 });
