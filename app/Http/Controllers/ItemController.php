@@ -37,11 +37,18 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        $item = (new Item)->forceFill([
-            'name' => $request->input('name'),
-            'created_by' => Auth::user()->id,
-            'updated_by' => Auth::user()->id,
+        $data = $request->validate([
+            'name' => 'required|string'
         ]);
+
+        $item = (new Item)->forceFill(
+            $data + [
+                'created_by' => 1,
+                'updated_by' => 1,
+                // 'created_by' => Auth::user()->id,
+                // 'updated_by' => Auth::user()->id,
+            ]
+        );
 
         $item->save();
 
@@ -79,10 +86,16 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     {
-        $item->forceFill([
-            'name'       => $request->input('name'),
-            'updated_by' => Auth::user()->id,
+        $data = $request->validate([
+            'name' => 'required|string'
         ]);
+
+        $item->forceFill(
+            $data + [
+                'updated_by' => 1,
+                // 'updated_by' => Auth::user()->id,
+            ]
+        );
 
         $item->save();
 
