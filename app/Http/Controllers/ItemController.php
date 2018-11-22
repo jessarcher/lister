@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Item;
 use App\Http\Resources\Item as ItemResource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
@@ -79,7 +80,7 @@ class ItemController extends Controller
     public function update(Request $request, Item $item)
     {
         $item->forceFill([
-            'text' => $request->input('text'),
+            'name'       => $request->input('name'),
             'updated_by' => Auth::user()->id,
         ]);
 
