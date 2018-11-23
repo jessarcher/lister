@@ -38,7 +38,8 @@ class ItemController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name' => 'required|string'
+            'name'  => 'required|string',
+            'order' => 'integer',
         ]);
 
         $item = (new Item)->forceFill(
@@ -87,7 +88,8 @@ class ItemController extends Controller
     public function update(Request $request, Item $item)
     {
         $data = $request->validate([
-            'name' => 'required|string'
+            'name'  => 'required|string',
+            'order' => 'integer',
         ]);
 
         $item->forceFill(
