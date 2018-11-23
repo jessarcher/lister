@@ -8,6 +8,8 @@
         </div>
     @endif
 
-    <list></list>
+    <div class="container mx-auto">
+        <list></list>
+    </div>
 
 @endsection
