@@ -114,6 +114,20 @@ class ItemController extends Controller
     }
 
     /**
+     * Update many items at a time
+     *
+     * @param Request $request
+     */
+    public function updateMany(Request $request)
+    {
+        foreach ($request->all() as $item) {
+            Item::where('uuid', $item['id'])->update(['order' => $item['order']]);
+        }
+
+        return response(null, 204);
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Item  $item

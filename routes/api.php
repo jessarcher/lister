@@ -17,4 +17,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::patch('items', 'ItemController@updateMany');
 Route::resource('items', 'ItemController');
