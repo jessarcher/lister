@@ -5,8 +5,7 @@
             <span v-if="syncing">[Syncing]</span>
         </h1>
 
-
-        <draggable v-model="items" :options="{animation: 150}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
+        <draggable v-model="items" :options="{handle:'.drag-handle'}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
             <transition-group :name="!drag? 'list' : null">
                 <list-item v-for="item in items" :key="item.id" :item="item"></list-item>
             </transition-group>
