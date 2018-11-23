@@ -61,9 +61,31 @@ export default new Vuex.Store({
         },
 
         updateItems(context, items) {
-            // TODO: This needs to update the back-end, ideally without sending
-            // absolutely everything.
-            context.commit('updateItems', items);
+            const itemsWithUpdatedOrder = items.map((item, index) => ({
+                ...item,
+                order: index + 1,
+            }));
+
+            const previousItems = _.keyBy(context.state.items, 'id');
+
+            const changedItems = itemsWithUpdatedOrder
+                .filter(item => {
+                    return previousItems[item.id].order !== item.order;
+                })
+                .map(item => ({
+                    id: item.id,
+                    order: item.order,
+                }));
+
+            context.dispatch('updateItemOrders', changedItems);
+
+            context.commit('updateItems', itemsWithUpdatedOrder);
+        },
+
+        updateItemOrders(context, newItemOrders) {
+            axios
+                .patch('/api/items/', newItemOrders)
+                .catch(errors => console.error(errors));
         },
 
         deleteItem(context, id) {
