@@ -21,5 +21,4 @@ if (mix.inProduction()) {
     mix.disableNotifications();
 } else {
     mix.sourceMaps();
-    mix.browserSync('lister.test');
 }
