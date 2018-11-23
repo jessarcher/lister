@@ -6,6 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         items: [],
+        syncing: false,
     },
 
     mutations: {
@@ -31,35 +32,48 @@ export default new Vuex.Store({
             const index = state.items.findIndex(item => item.id === id);
 
             state.items.splice(index, 1)
-        }
+        },
+
+        setSyncing(state, syncing) {
+            state.syncing = syncing;
+        },
     },
 
     actions: {
         fetchItems(context) {
+            context.commit('setSyncing', true);
+
             axios
                 .get('/api/items')
                 .then(response => context.commit('populateItems', response.data.data))
-                .catch(errors => console.error(errors));
+                .catch(errors => console.error(errors))
+                .then(() => context.commit('setSyncing', false));
         },
 
         addItem(context, item) {
+            context.commit('setSyncing', true);
+
             axios
                 .post('/api/items', {
                     name: item.name,
                     order: context.state.items.length + 1,
                 })
                 .then(response => context.commit('addItem', response.data.data))
-                .catch(errors => console.error(errors));
+                .catch(errors => console.error(errors))
+                .then(() => context.commit('setSyncing', false));
         },
 
         updateItem(context, item) {
+            context.commit('setSyncing', true);
+
             axios
                 .put('/api/items/' + item.id, {
                     name: item.name,
                     complete: item.complete,
                 })
                 .then(response => context.commit('updateItem', response.data.data))
-                .catch(errors => console.error(errors));
+                .catch(errors => console.error(errors))
+                .then(() => context.commit('setSyncing', false));
         },
 
         updateItems(context, items) {
@@ -85,16 +99,22 @@ export default new Vuex.Store({
         },
 
         updateItemOrders(context, newItemOrders) {
+            context.commit('setSyncing', true);
+
             axios
                 .patch('/api/items/', newItemOrders)
-                .catch(errors => console.error(errors));
+                .catch(errors => console.error(errors))
+                .then(() => context.commit('setSyncing', false));
         },
 
         deleteItem(context, id) {
+            context.commit('setSyncing', true);
+
             axios
                 .delete('/api/items/' + id)
                 .then(response => context.commit('deleteItem', id))
-                .catch(errors => console.error(errors));
+                .catch(errors => console.error(errors))
+                .then(() => context.commit('setSyncing', false));
         }
     },
 });

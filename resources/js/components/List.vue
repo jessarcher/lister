@@ -1,6 +1,9 @@
 <template>
     <div>
-        <h1>My List</h1>
+        <h1>
+            My List
+            <span v-if="syncing">[Syncing]</span>
+        </h1>
 
 
         <draggable v-model="items" :options="{animation: 150}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
@@ -66,15 +69,11 @@ export default {
             set(items) {
                 this.$store.dispatch('updateItems', items)
             }
-        }
-    },
+        },
 
-    watch: {
-        // items() {
-        //     this.items.forEach((item, index) => {
-        //         item.order = index + 1;
-        //     });
-        // },
+        syncing() {
+            return this.$store.state.syncing;
+        },
     },
 
     methods: {
