@@ -14,7 +14,14 @@ const mix = require('laravel-mix');
 mix.sass('resources/sass/app.scss', 'public/css');
 
 mix.js('resources/js/app.js', 'public/js')
-    .extract(['vue', 'vuex']);
+    .extract([
+        'axios',
+        'lodash',
+        'popper.js',
+        'vue',
+        'vuedraggable',
+        'vuex',
+    ]);
 
 if (mix.inProduction()) {
     mix.version()

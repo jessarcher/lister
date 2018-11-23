@@ -2,7 +2,7 @@
     <div>
         <h1>
             My List
-            <span v-if="syncing">[Syncing]</span>
+            <i v-if="syncing" class="fas fa-sync-alt fa-spin"></i>
         </h1>
 
         <draggable v-model="items" :options="{handle:'.drag-handle'}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
