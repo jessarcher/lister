@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Item;
 use App\Http\Resources\Item as ItemResource;
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -91,6 +92,14 @@ class ItemController extends Controller
             'name'  => 'required|string',
             'order' => 'integer',
         ]);
+
+        if ($request->has('complete')) {
+            if ($request->complete) {
+                $item->completeBy(new User(['id' => 1]));
+            } else {
+                $item->incomplete();
+            }
+        }
 
         $item->forceFill(
             $data + [

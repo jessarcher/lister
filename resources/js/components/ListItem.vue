@@ -1,6 +1,6 @@
 <template>
     <div class="list-item">
-        <input type="checkbox" :checked="complete" @input="update">
+        <input type="checkbox" v-model="complete" @change="update">
         <input type="text" v-model="name" @blur="update">
         <button @click="remove">
             Delete
@@ -24,7 +24,8 @@
             update() {
                 this.$store.dispatch('updateItem', {
                     id: this.id,
-                    name: this.name
+                    name: this.name,
+                    complete: this.complete,
                 });
             },
 

@@ -56,6 +56,7 @@ export default new Vuex.Store({
             axios
                 .put('/api/items/' + item.id, {
                     name: item.name,
+                    complete: item.complete,
                 })
                 .then(response => context.commit('updateItem', response.data.data))
                 .catch(errors => console.error(errors));
