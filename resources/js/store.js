@@ -14,7 +14,7 @@ export default new Vuex.Store({
         },
 
         addItem(state, newItem) {
-            state.items.unshift(newItem);
+            state.items.push(newItem);
         },
 
         updateItem(state, updatedItem) {
@@ -46,6 +46,7 @@ export default new Vuex.Store({
             axios
                 .post('/api/items', {
                     name: item.name,
+                    order: context.state.items.length + 1,
                 })
                 .then(response => context.commit('addItem', response.data.data))
                 .catch(errors => console.error(errors));

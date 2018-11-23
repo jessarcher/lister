@@ -2,17 +2,18 @@
     <div>
         <h1>My List</h1>
 
-        <input type="text" v-model="newItemName" placeholder="Add a new item..." @keyup.enter="addItem">
-
-        <button @click="addItem">
-            Add
-        </button>
 
         <draggable v-model="items" :options="{animation: 150}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
             <transition-group :name="!drag? 'list' : null">
                 <list-item v-for="item in items" :key="item.id" :item="item"></list-item>
             </transition-group>
         </draggable>
+
+        <input type="text" v-model="newItemName" placeholder="Add a new item..." @keyup.enter="addItem">
+
+        <button @click="addItem">
+            Add
+        </button>
 
         <pre>{{ items }}</pre>
     </div>
@@ -27,7 +28,7 @@
 }
 .list-enter {
     opacity: 0;
-    transform: translateY(-30px);
+    transform: translateY(30px);
 }
 .list-leave-to {
     opacity: 0;
