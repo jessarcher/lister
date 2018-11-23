@@ -42,9 +42,12 @@
 <script>
 import draggable from 'vuedraggable'
 
+import ListItem from './ListItem';
+
 export default {
     components: {
         draggable,
+        ListItem,
     },
 
     data() {
