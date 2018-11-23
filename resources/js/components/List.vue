@@ -16,8 +16,6 @@
         <button @click="addItem">
             Add
         </button>
-
-        <pre>{{ items }}</pre>
     </div>
 </template>
 
