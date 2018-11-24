@@ -5,7 +5,7 @@
         <input
             type="checkbox"
             :checked="item.complete"
-            @change="toggleItem(item)"
+            @change="toggle"
             class="mr-3">
 
         <input
@@ -40,7 +40,11 @@
 
             remove() {
                 this.$store.dispatch('deleteItem', this.item);
-            }
+            },
+
+            toggle() {
+                this.$store.dispatch('toggleItem', this.item);
+            },
         }
     }
 </script>

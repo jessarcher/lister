@@ -88,6 +88,10 @@ export default new Vuex.Store({
                 .then(() => commit('setSyncing', false));
         },
 
+        toggleItem({ dispatch }, item) {
+            dispatch('updateItem', { item, complete: !item.complete })
+        },
+
         updateItems(context, items) {
             console.log('updateItems');
             const itemsWithUpdatedOrder = items.map((item, index) => ({
