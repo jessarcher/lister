@@ -1,10 +1,20 @@
 <template>
-    <div class="py-2 flex justify-between">
-        <i class="fas fa-grip-vertical text-grey-dark drag-handle"></i>
+    <div class="py-3 flex items-center">
+        <i class="fas fa-grip-vertical text-grey-dark drag-handle mr-3"></i>
 
-        <input type="checkbox" v-model="complete" @change="update">
+        <input
+            type="checkbox"
+            v-model="complete"
+            @change="update"
+            class="mr-3"
+        >
 
-        <input type="text" v-model="name" @blur="update">
+        <input
+            type="text"
+            v-model="name"
+            @blur="update"
+            :class="'flex-grow mr-3 min-w-0 text-grey-darkest' + (complete ? ' line-through' : '')"
+        >
 
         <button @click="remove">
             <i class="fas fa-times"></i>
@@ -20,6 +30,7 @@
             return {
                 id: this.item.id,
                 name: this.item.name,
+                order: this.item.order,
                 complete: this.item.complete,
             }
         },

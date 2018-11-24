@@ -17,7 +17,7 @@
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body class="bg-grey-lightest text-grey-dark">
     <div id="app">
         <nav style="display:none;">
             <a href="{{ url('/') }}">
