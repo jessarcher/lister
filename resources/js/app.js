@@ -17,7 +17,7 @@ window.Vue = require('vue');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('list', require('./components/List.vue'));
 
 // const files = require.context('./', true, /\.vue$/i)
 
@@ -31,6 +31,9 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import store from './store';
+
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    store,
 });

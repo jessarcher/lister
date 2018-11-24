@@ -1,4 +1,5 @@
 const mix = require('laravel-mix');
+const tailwindcss = require('tailwindcss');
 
 /*
  |--------------------------------------------------------------------------
@@ -11,15 +12,27 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.sass('resources/sass/app.scss', 'public/css');
+mix.sass('resources/sass/app.scss', 'public/css')
+    .options({
+        processCssUrls: false,
+        postCss: [ tailwindcss('./tailwind.js') ],
+    });
 
 mix.js('resources/js/app.js', 'public/js')
-    .extract(['vue']);
+    .extract([
+        'axios',
+        'lodash',
+        'popper.js',
+        'vue',
+        'vuedraggable',
+        'vuex',
+    ]);
+
+mix.copy('./node_modules/@fortawesome/fontawesome-free/webfonts/', 'public/fonts/vendor/fontawesome/')
 
 if (mix.inProduction()) {
     mix.version()
     mix.disableNotifications();
 } else {
     mix.sourceMaps();
-    mix.browserSync('lister.test');
 }
