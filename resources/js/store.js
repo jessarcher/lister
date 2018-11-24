@@ -16,24 +16,22 @@ export default new Vuex.Store({
             state.items = items;
         },
 
-        addItem(state, newItem) {
-            state.items.push(newItem);
+        addItem(state, item) {
+            state.items.push(item)
         },
 
-        updateItem(state, updatedItem) {
-            const index = state.items.findIndex(existingItem => existingItem.id === updatedItem.id);
+        updateItem(state, { item, name = item.name, complete = item.complete, uuid = item.uuid }) {
+            item.name = name
+            item.complete = complete
+            Vue.set(item, 'uuid', uuid)
+        },
 
-            state.items.splice(index, 1, updatedItem);
+        deleteItem(state, item) {
+            state.items.splice(state.items.indexOf(item), 1)
         },
 
         updateItems(state, updatedItems) {
             state.items = updatedItems;
-        },
-
-        deleteItem(state, id) {
-            const index = state.items.findIndex(item => item.id === id);
-
-            state.items.splice(index, 1)
         },
 
         setSyncing(state, syncing) {
@@ -42,56 +40,69 @@ export default new Vuex.Store({
     },
 
     actions: {
-        fetchItems(context) {
-            context.commit('setSyncing', true);
+        fetchItems({ commit }) {
+            commit('setSyncing', true);
 
             axios
                 .get('/api/items')
-                .then(response => context.commit('populateItems', response.data.data))
+                .then(response => commit('populateItems', response.data.data))
                 .catch(errors => console.error(errors))
-                .then(() => context.commit('setSyncing', false));
+                .then(() => commit('setSyncing', false));
         },
 
-        addItem(context, item) {
-            context.commit('setSyncing', true);
+        addItem({ commit, state }, item) {
+            item.order = state.items.length + 1;
+
+            commit('addItem', item);
+
+            commit('setSyncing', true)
 
             axios
                 .post('/api/items', {
                     name: item.name,
-                    order: context.state.items.length + 1,
+                    order: item.order
                 })
-                .then(response => context.commit('addItem', response.data.data))
-                .catch(errors => console.error(errors))
-                .then(() => context.commit('setSyncing', false));
+                .then(response => commit('updateItem', {
+                    item,
+                    uuid: response.data.data.uuid,
+                }))
+                .catch(errors => {
+                    console.error(errors)
+                    alert('Couldn\'t save item')
+                    commit('deleteItem', item)
+                })
+                .then(() => commit('setSyncing', false))
         },
 
-        updateItem(context, item) {
-            context.commit('setSyncing', true);
+        updateItem({ commit }, { item, name = item.name, complete = item.complete }) {
+            commit('updateItem', { item, name, complete})
+
+            commit('setSyncing', true)
 
             axios
-                .put('/api/items/' + item.id, {
-                    name: item.name,
-                    complete: item.complete,
+                .put('/api/items/' + item.uuid, {
+                    name,
+                    complete,
                 })
-                .then(response => context.commit('updateItem', response.data.data))
                 .catch(errors => console.error(errors))
-                .then(() => context.commit('setSyncing', false));
+                .then(() => commit('setSyncing', false));
         },
 
         updateItems(context, items) {
+            console.log('updateItems');
             const itemsWithUpdatedOrder = items.map((item, index) => ({
                 ...item,
                 order: index + 1,
             }));
 
-            const previousItems = _.keyBy(context.state.items, 'id');
+            const previousItems = _.keyBy(context.state.items, 'uuid');
 
             const changedItems = itemsWithUpdatedOrder
                 .filter(item => {
-                    return previousItems[item.id].order !== item.order;
+                    return previousItems[item.uuid].order !== item.order;
                 })
                 .map(item => ({
-                    id: item.id,
+                    uuid: item.uuid,
                     order: item.order,
                 }));
 
@@ -109,14 +120,20 @@ export default new Vuex.Store({
                 .then(() => context.commit('setSyncing', false));
         },
 
-        deleteItem(context, id) {
-            context.commit('setSyncing', true);
+        deleteItem({ commit }, item) {
+            commit('deleteItem', item);
+
+            commit('setSyncing', true);
 
             axios
-                .delete('/api/items/' + id)
-                .then(response => context.commit('deleteItem', id))
-                .catch(errors => console.error(errors))
-                .then(() => context.commit('setSyncing', false));
+                .delete('/api/items/' + item.uuid)
+                .catch(errors => {
+                    console.error(errors)
+                    alert('Couldn\'t delete item')
+                    // Add the item back
+                    commit('addItem', item)
+                })
+                .then(() => commit('setSyncing', false));
         }
     },
 });

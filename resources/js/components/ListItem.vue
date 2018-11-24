@@ -1,51 +1,45 @@
 <template>
-    <div class="py-3 flex items-center">
-        <i class="fas fa-grip-vertical text-grey-dark drag-handle mr-3"></i>
+    <div class="py-3 flex items-center" :class="{ 'opacity-50': item.complete }">
+        <i class="fas fa-grip-vertical text-grey-dark drag-handle mx-4"></i>
 
         <input
             type="checkbox"
-            v-model="complete"
-            @change="update"
-            class="mr-3"
-        >
+            :checked="item.complete"
+            @change="toggleItem(item)"
+            class="mr-3">
 
         <input
             type="text"
-            v-model="name"
+            :value="item.name"
             @blur="update"
-            :class="'flex-grow mr-3 min-w-0 text-grey-darkest' + (complete ? ' line-through' : '')"
-        >
+            class="flex-grow mr-3 min-w-0 text-grey-darkest bg-transparent"
+            :class="{ 'line-through': item.complete }">
 
-        <button @click="remove">
+        <button @click="remove" class="mr-4">
             <i class="fas fa-times"></i>
         </button>
     </div>
 </template>
 
+<style>
+.sortable-chosen {
+    @apply bg-blue-lightest;
+}
+</style>
+
 <script>
     export default {
         props: ['item'],
 
-        data() {
-            return {
-                id: this.item.id,
-                name: this.item.name,
-                order: this.item.order,
-                complete: this.item.complete,
-            }
-        },
-
         methods: {
-            update() {
-                this.$store.dispatch('updateItem', {
-                    id: this.id,
-                    name: this.name,
-                    complete: this.complete,
-                });
+            update(e) {
+                const { item } = this
+
+                this.$store.dispatch('updateItem', { item, name: e.target.value })
             },
 
             remove() {
-                this.$store.dispatch('deleteItem', this.id);
+                this.$store.dispatch('deleteItem', this.item);
             }
         }
     }

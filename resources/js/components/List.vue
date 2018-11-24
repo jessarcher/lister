@@ -1,18 +1,24 @@
 <template>
-    <div class="bg-white shadow rounded p-4">
-        <h1 class="text-uppercase text-base text-grey-darker pb-2">
+    <div class="bg-white shadow rounded py-4">
+        <h1 class="text-uppercase text-base text-grey-darker pb-2 px-4">
             My List
             <i v-if="syncing" class="fas fa-sync-alt fa-spin text-grey-darker text-base"></i>
         </h1>
 
         <draggable v-model="items" :options="{handle: '.drag-handle', animation: 150}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
             <transition-group :name="!drag? 'list' : null">
-                <list-item v-for="item in items" :key="item.id" :item="item"></list-item>
+                <list-item v-for="(item, index) in items" :key="index" :item="item"></list-item>
             </transition-group>
         </draggable>
 
-        <div class="flex justify-between pt-2">
-            <input type="text" v-model="newItemName" placeholder="Add a new item..." @keyup.enter="addItem" class="min-w-0">
+        <div class="flex pt-2 px-4">
+            <input
+                type="text"
+                v-model="newItemName"
+                placeholder="Add a new item..."
+                @keyup.enter="addItem"
+                class="flex-grow min-w-0"
+            >
 
             <button @click="addItem" class="border rounded border-grey py-1 px-3 text-sm">
                 Add
