@@ -11,6 +11,7 @@
 /.vscode
 /nbproject
 /.vagrant
+auth.json
 Homestead.json
 Homestead.yaml
 npm-debug.log
