@@ -1,10 +1,11 @@
 <template>
-    <div class="py-2">
-        <span class="drag-handle">
-            <i class="fas fa-grip-vertical text-grey-dark"></i>
-        </span>
+    <div class="py-2 flex justify-between">
+        <i class="fas fa-grip-vertical text-grey-dark drag-handle"></i>
+
         <input type="checkbox" v-model="complete" @change="update">
+
         <input type="text" v-model="name" @blur="update">
+
         <button @click="remove">
             <i class="fas fa-times"></i>
         </button>

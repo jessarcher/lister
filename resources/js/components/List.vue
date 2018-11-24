@@ -1,21 +1,23 @@
 <template>
     <div>
-        <h1>
+        <h1 class="text-uppercase text-base text-grey-darker pb-2">
             My List
             <i v-if="syncing" class="fas fa-sync-alt fa-spin text-grey-darker text-base"></i>
         </h1>
 
-        <draggable v-model="items" :options="{handle:'.drag-handle'}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
+        <draggable v-model="items" :options="{handle: '.drag-handle'}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
             <transition-group :name="!drag? 'list' : null">
                 <list-item v-for="item in items" :key="item.id" :item="item"></list-item>
             </transition-group>
         </draggable>
 
-        <input type="text" v-model="newItemName" placeholder="Add a new item..." @keyup.enter="addItem">
+        <div class="flex justify-between pt-2">
+            <input type="text" v-model="newItemName" placeholder="Add a new item..." @keyup.enter="addItem">
 
-        <button @click="addItem">
-            Add
-        </button>
+            <button @click="addItem">
+                Add
+            </button>
+        </div>
     </div>
 </template>
 
