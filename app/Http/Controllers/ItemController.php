@@ -121,7 +121,7 @@ class ItemController extends Controller
     public function updateMany(Request $request)
     {
         foreach ($request->all() as $item) {
-            Item::where('uuid', $item['id'])->update(['order' => $item['order']]);
+            Item::where('uuid', $item['uuid'])->update(['order' => $item['order']]);
         }
 
         return response(null, 204);
