@@ -19,7 +19,7 @@
 </head>
 <body class="bg-grey-lightest text-grey-dark">
     <div id="app">
-        <nav style="display:none;">
+        <nav>
             <a href="{{ url('/') }}">
                 {{ config('app.name', 'Lister') }}
             </a>
