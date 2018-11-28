@@ -18,9 +18,10 @@
                 placeholder="Add a new item..."
                 @keyup.enter="addItem"
                 class="flex-grow min-w-0"
+                dusk="add-new-item-input"
             >
 
-            <button @click="addItem" class="border rounded border-grey py-1 px-3 text-sm">
+            <button @click="addItem" class="border rounded border-grey py-1 px-3 text-sm" dusk="add-new-item-button">
                 Add
             </button>
         </div>

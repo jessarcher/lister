@@ -1,5 +1,5 @@
 <template>
-    <div class="py-3 flex items-center" :class="{ 'opacity-50': item.complete }">
+    <div class="py-3 flex items-center" :class="{ 'opacity-50': item.complete }" dusk="item">
         <i class="fas fa-grip-vertical text-grey-dark drag-handle mx-4"></i>
 
         <input
@@ -13,7 +13,9 @@
             :value="item.name"
             @blur="update"
             class="flex-grow mr-3 min-w-0 text-grey-darkest bg-transparent"
-            :class="{ 'line-through': item.complete }">
+            :class="{ 'line-through': item.complete }"
+            dusk="item-input"
+            >
 
         <button @click="remove" class="mr-4">
             <i class="fas fa-times"></i>
