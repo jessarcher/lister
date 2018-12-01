@@ -9,7 +9,7 @@
     @endif
 
     <div class="p-4">
-        <list></list>
+        <router-view></router-view>
     </div>
 
 @endsection

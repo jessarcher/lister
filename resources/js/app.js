@@ -17,8 +17,6 @@ window.Vue = require('vue');
  * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
  */
 
-Vue.component('list', require('./components/List.vue'));
-
 // const files = require.context('./', true, /\.vue$/i)
 
 // files.keys().map(key => {
@@ -33,7 +31,10 @@ Vue.component('list', require('./components/List.vue'));
 
 import store from './store';
 
+import router from './router';
+
 const app = new Vue({
     el: '#app',
     store,
+    router,
 });
