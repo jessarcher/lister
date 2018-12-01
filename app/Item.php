@@ -8,6 +8,11 @@ use Webpatser\Uuid\Uuid;
 
 class Item extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'name',
         'order',
@@ -19,6 +24,11 @@ class Item extends Model
         'completed_by',
     ];
 
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
     public static function boot()
     {
         parent::boot();
