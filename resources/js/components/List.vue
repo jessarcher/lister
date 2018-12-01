@@ -69,16 +69,16 @@ export default {
     computed: {
         items: {
             get() {
-                return this.$store.state.items;
+                return this.$store.state.items.all;
             },
 
             set(items) {
-                this.$store.dispatch('updateItems', items)
+                this.$store.dispatch('items/updateAll', items)
             }
         },
 
         syncing() {
-            return this.$store.state.syncing;
+            return this.$store.state.items.syncing;
         },
     },
 
@@ -88,7 +88,7 @@ export default {
                 return;
             }
 
-            this.$store.dispatch('addItem', {
+            this.$store.dispatch('items/add', {
                 name: this.newItemName,
             })
 
@@ -97,7 +97,7 @@ export default {
     },
 
     created() {
-        this.$store.dispatch('fetchItems');
+        this.$store.dispatch('items/fetch');
     },
 }
 </script>

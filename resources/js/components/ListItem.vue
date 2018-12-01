@@ -37,15 +37,15 @@
             update(e) {
                 const { item } = this
 
-                this.$store.dispatch('updateItem', { item, name: e.target.value })
+                this.$store.dispatch('items/update', { item, name: e.target.value })
             },
 
             remove() {
-                this.$store.dispatch('deleteItem', this.item);
+                this.$store.dispatch('items/delete', this.item);
             },
 
             toggle() {
-                this.$store.dispatch('toggleItem', this.item);
+                this.$store.dispatch('items/toggle', this.item);
             },
         }
     }

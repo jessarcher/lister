@@ -1,59 +1,54 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-
-Vue.use(Vuex);
-
-export default new Vuex.Store({
-    strict: process.env.NODE_ENV !== 'production',
+export default {
+    namespaced: true,
 
     state: {
-        items: [],
+        all: [],
         syncing: false,
     },
 
     mutations: {
-        populateItems(state, items) {
-            state.items = items;
+        setSyncing(state, syncing) {
+            state.syncing = syncing;
         },
 
-        addItem(state, item) {
-            state.items.push(item)
+        populate(state, items) {
+            state.all = items;
         },
 
-        updateItem(state, { item, name = item.name, complete = item.complete, uuid = item.uuid }) {
+        add(state, item) {
+            state.all.push(item)
+        },
+
+        update(state, { item, name = item.name, complete = item.complete, uuid = item.uuid }) {
             item.name = name
             item.complete = complete
             Vue.set(item, 'uuid', uuid)
         },
 
-        deleteItem(state, item) {
-            state.items.splice(state.items.indexOf(item), 1)
+        delete(state, item) {
+            state.all.splice(state.all.indexOf(item), 1)
         },
 
-        updateItems(state, updatedItems) {
-            state.items = updatedItems;
-        },
-
-        setSyncing(state, syncing) {
-            state.syncing = syncing;
+        updateAll(state, items) {
+            state.all = items;
         },
     },
 
     actions: {
-        fetchItems({ commit }) {
+        fetch({ commit }) {
             commit('setSyncing', true);
 
             axios
                 .get('/api/items')
-                .then(response => commit('populateItems', response.data.data))
+                .then(response => commit('populate', response.data.data))
                 .catch(errors => console.error(errors))
                 .then(() => commit('setSyncing', false));
         },
 
-        addItem({ commit, state }, item) {
-            item.order = state.items.length + 1;
+        add({ commit, state }, item) {
+            item.order = state.all.length + 1;
 
-            commit('addItem', item);
+            commit('add', item);
 
             commit('setSyncing', true)
 
@@ -62,20 +57,20 @@ export default new Vuex.Store({
                     name: item.name,
                     order: item.order
                 })
-                .then(response => commit('updateItem', {
+                .then(response => commit('update', {
                     item,
                     uuid: response.data.data.uuid,
                 }))
                 .catch(errors => {
                     console.error(errors)
                     alert('Couldn\'t save item')
-                    commit('deleteItem', item)
+                    commit('delete', item)
                 })
                 .then(() => commit('setSyncing', false))
         },
 
-        updateItem({ commit }, { item, name = item.name, complete = item.complete }) {
-            commit('updateItem', { item, name, complete})
+        update({ commit }, { item, name = item.name, complete = item.complete }) {
+            commit('update', { item, name, complete})
 
             commit('setSyncing', true)
 
@@ -88,18 +83,17 @@ export default new Vuex.Store({
                 .then(() => commit('setSyncing', false));
         },
 
-        toggleItem({ dispatch }, item) {
-            dispatch('updateItem', { item, complete: !item.complete })
+        toggle({ dispatch }, item) {
+            dispatch('update', { item, complete: !item.complete })
         },
 
-        updateItems(context, items) {
-            console.log('updateItems');
+        updateAll({ state, commit, dispatch }, items) {
             const itemsWithUpdatedOrder = items.map((item, index) => ({
                 ...item,
                 order: index + 1,
             }));
 
-            const previousItems = _.keyBy(context.state.items, 'uuid');
+            const previousItems = _.keyBy(state.all, 'uuid');
 
             const changedItems = itemsWithUpdatedOrder
                 .filter(item => {
@@ -110,22 +104,22 @@ export default new Vuex.Store({
                     order: item.order,
                 }));
 
-            context.dispatch('updateItemOrders', changedItems);
+            dispatch('updateOrders', changedItems);
 
-            context.commit('updateItems', itemsWithUpdatedOrder);
+            commit('updateAll', itemsWithUpdatedOrder);
         },
 
-        updateItemOrders(context, newItemOrders) {
-            context.commit('setSyncing', true);
+        updateOrders({ commit }, newOrders) {
+            commit('setSyncing', true);
 
             axios
-                .patch('/api/items/', newItemOrders)
+                .patch('/api/items/', newOrders)
                 .catch(errors => console.error(errors))
-                .then(() => context.commit('setSyncing', false));
+                .then(() => commit('setSyncing', false));
         },
 
-        deleteItem({ commit }, item) {
-            commit('deleteItem', item);
+        delete({ commit }, item) {
+            commit('delete', item);
 
             commit('setSyncing', true);
 
@@ -140,4 +134,4 @@ export default new Vuex.Store({
                 .then(() => commit('setSyncing', false));
         }
     },
-});
+}
