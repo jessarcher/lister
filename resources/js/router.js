@@ -6,6 +6,6 @@ Vue.use(VueRouter)
 export default new VueRouter({
     routes: [
         { path: '/', component: require('./components/Lists') },
-        { path: '/lists/:id', component: require('./components/List') },
+        { path: '/lists/:list_id', component: require('./components/List') },
     ],
 });

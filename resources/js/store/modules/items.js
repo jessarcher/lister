@@ -35,11 +35,11 @@ export default {
     },
 
     actions: {
-        fetch({ commit }) {
+        fetch({ commit }, listId) {
             commit('setSyncing', true);
 
             axios
-                .get('/api/items')
+                .get('/api/lists/' + listId + '/items')
                 .then(response => commit('populate', response.data.data))
                 .catch(errors => console.error(errors))
                 .then(() => commit('setSyncing', false));
@@ -53,7 +53,7 @@ export default {
             commit('setSyncing', true)
 
             axios
-                .post('/api/items', {
+                .post('/api/lists/' + item.list_id + '/items', {
                     name: item.name,
                     order: item.order
                 })

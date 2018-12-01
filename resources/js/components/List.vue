@@ -90,6 +90,7 @@ export default {
 
             this.$store.dispatch('items/add', {
                 name: this.newItemName,
+                list_id: this.$route.params.list_id,
             })
 
             this.newItemName = '';
@@ -97,7 +98,7 @@ export default {
     },
 
     created() {
-        this.$store.dispatch('items/fetch');
+        this.$store.dispatch('items/fetch', this.$route.params.list_id);
     },
 }
 </script>
