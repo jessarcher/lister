@@ -93,6 +93,6 @@ class Item extends Model
      */
     public function list()
     {
-        return $this->belongsTo(ItemList::class);
+        return $this->belongsTo(ItemList::class, 'list_id');
     }
 }
