@@ -51,4 +51,14 @@ class ItemList extends Model
     {
         return 'uuid';
     }
+
+    /**
+     * The items that belong to this list
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function items()
+    {
+        return $this->hasMany(Item::class);
+    }
 }

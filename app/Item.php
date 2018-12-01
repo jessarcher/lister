@@ -85,4 +85,14 @@ class Item extends Model
 
         return $this;
     }
+
+    /**
+     * The list that this item belongs to
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function list()
+    {
+        return $this->belongsTo(ItemList::class);
+    }
 }
