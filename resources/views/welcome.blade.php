@@ -3,11 +3,20 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="manifest" href="{{ url('manifest.json') }}">
+        <meta name="theme-color" content="#317EFB">
 
-        <title>Lister</title>
+        <!-- CSRF Token -->
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+
+        <title>{{ config('app.name', 'Lister') }}</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+
+        <script src="{{ mix('js/manifest.js') }}" defer></script>
+        <script src="{{ mix('js/vendor.js') }}" defer></script>
+        <script src="{{ mix('js/app.js') }}" defer></script>
 
         <!-- Styles -->
         <style>
@@ -85,5 +94,6 @@
                 </div>
             </div>
         </div>
+        <div id="app"></div>
     </body>
 </html>
