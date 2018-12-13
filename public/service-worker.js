@@ -20,7 +20,7 @@ self.addEventListener('fetch', (event) => {
     console.log('The service worker is serving the asset.');
 
     event.respondWith(fromNetwork(event.request, 400).catch(() => fromCache(event.request)));
-};
+});
 
 const precache = () => caches.open(cacheName).then((cache) => cache.addAll(filesToCache));
 
