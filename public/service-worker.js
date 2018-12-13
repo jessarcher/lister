@@ -20,7 +20,7 @@ self.addEventListener('fetch', (event) => {
     console.log('The service worker is serving the asset.');
 
     event.respondWith(fromNetwork(event.request, 400).catch(() => fromCache(event.request)));
-};
+});
 
 const precache = () => caches.open(cacheName).then((cache) => cache.addAll(filesToCache));
 
@@ -36,4 +36,4 @@ const fromNetwork = (request, timeout) => new Promise((fulfill, reject) => {
 const fromCache = (request) =>
     caches.open(cacheName)
         .then((cache) => cache.match(request)
-            .then((matching) => matching || Promise.reject('no-match'));
+            .then((matching) => matching || Promise.reject('no-match')));
