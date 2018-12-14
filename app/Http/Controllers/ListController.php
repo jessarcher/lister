@@ -65,23 +65,23 @@ class ListController extends Controller
      * @param  \App\ItemList  $itemList
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ItemList $itemList)
+    public function update(Request $request, ItemList $list)
     {
         $data = $request->validate([
             'name'  => 'required|string',
             'order' => 'integer',
         ]);
 
-        $itemList->forceFill(
+        $list->forceFill(
             $data + [
                 'updated_by' => 1,
                 // 'updated_by' => Auth::user()->id,
             ]
         );
 
-        $itemList->save();
+        $list->save();
 
-        return new ItemListResource($itemList);
+        return new ItemListResource($list);
     }
 
     /**
@@ -105,9 +105,9 @@ class ListController extends Controller
      * @param  \App\ItemList  $itemList
      * @return \Illuminate\Http\Response
      */
-    public function destroy(ItemList $itemList)
+    public function destroy(ItemList $list)
     {
-        $item->delete();
+        $list->delete();
 
         return response(null, 204);
     }
