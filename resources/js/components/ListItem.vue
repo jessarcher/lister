@@ -1,6 +1,6 @@
 <template>
-    <div class="py-3 flex items-center" :class="{ 'opacity-50': item.complete }" dusk="item">
-        <i class="fas fa-grip-vertical text-grey-dark drag-handle mx-4"></i>
+    <div class="py-1 flex items-center" :class="{ 'opacity-50': item.complete }" dusk="item">
+        <i class="fas fa-grip-vertical text-grey-dark drag-handle px-4 py-2"></i>
 
         <input
             type="checkbox"
@@ -12,12 +12,12 @@
             type="text"
             :value="item.name"
             @blur="update"
-            class="flex-grow mr-3 min-w-0 text-grey-darkest bg-transparent"
+            class="flex-grow mr-3 min-w-0 text-grey-darkest bg-transparent text-lg"
             :class="{ 'line-through': item.complete }"
             dusk="item-input"
             >
 
-        <button @click="remove" class="mr-4">
+        <button @click="remove" class="px-4 py-2">
             <i class="fas fa-times"></i>
         </button>
     </div>
