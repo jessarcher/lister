@@ -21,21 +21,29 @@ self.addEventListener('fetch', (event) => {
 
     if (event.request.method === 'GET') {
         event.respondWith(fromNetwork(event.request, 400).catch(() => fromCache(event.request)));
+    } else {
+        event.respondWith(fromNetwork(event.request));
     }
 });
 
 const precache = () => caches.open(cacheName).then((cache) => cache.addAll(filesToCache));
 
 const fromNetwork = (request, timeout) => new Promise((fulfill, reject) => {
-    var timeoutId = setTimeout(reject, timeout);
+    if (timeout > 0) {
+        var timeoutId = setTimeout(reject, timeout);
+    }
 
     fetch(request).then((response) => {
-        clearTimeout(timeoutId);
+        if (timeoutId) {
+            clearTimeout(timeoutId);
+        }
         fulfill(response);
     }, reject);
 });
 
 const fromCache = (request) =>
-    caches.open(cacheName)
-        .then((cache) => cache.match(request)
-            .then((matching) => matching || Promise.reject('no-match')));
+    caches
+        .open(cacheName)
+        .then(
+            (cache) => cache.match(request).then((matching) => matching || Promise.reject('no-match'))
+        );
