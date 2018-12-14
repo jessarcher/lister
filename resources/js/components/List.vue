@@ -1,104 +1,49 @@
 <template>
-    <div class="bg-white shadow rounded py-4">
-        <h1 class="text-uppercase text-base text-grey-darker pb-2 px-4">
-            My List
-            <i v-if="syncing" class="fas fa-sync-alt fa-spin text-grey-darker text-base"></i>
-        </h1>
+    <div class="py-1 flex items-center" dusk="list">
+        <i class="fas fa-grip-vertical text-grey-dark drag-handle px-4 py-2"></i>
 
-        <draggable v-model="items" :options="{handle: '.drag-handle', animation: 150}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
-            <transition-group :name="!drag? 'list' : null">
-                <list-item v-for="(item, index) in items" :key="index" :item="item"></list-item>
-            </transition-group>
-        </draggable>
-
-        <div class="flex pt-2 px-4">
-            <input
-                type="text"
-                v-model="newItemName"
-                placeholder="Add a new item..."
-                @keyup.enter="addItem"
-                class="flex-grow min-w-0"
-                dusk="add-new-item-input"
+        <input
+            type="text"
+            :value="list.name"
+            @blur="update"
+            class="flex-grow mr-3 min-w-0 text-grey-darkest bg-transparent text-lg"
+            dusk="list-input"
             >
 
-            <button @click="addItem" class="border rounded border-grey py-1 px-3 text-sm" dusk="add-new-item-button">
-                Add
-            </button>
-        </div>
+        <router-link :to="'/lists/' + list.uuid">
+            <i class="fas fa-arrow-circle-right px-4 py-2 text-purple"></i>
+        </router-link>
+
+        <button @click="remove" class="px-4 py-2">
+            <i class="fas fa-times"></i>
+        </button>
     </div>
 </template>
 
 <style>
-.list-move {
-    transition: transform 0.3s;
-}
-.list-enter-active, .list-leave-active {
-    transition: all 0.3s;
-}
-.list-enter {
-    opacity: 0;
-    transform: translateY(30px);
-}
-.list-leave-to {
-    opacity: 0;
-    transform: translateX(30px);
-}
-.list-leave-active {
-    position: absolute;
+.sortable-chosen {
+    @apply bg-blue-lightest;
 }
 </style>
 
 <script>
-import draggable from 'vuedraggable'
+    export default {
+        props: ['list'],
 
-import ListItem from './ListItem';
+        methods: {
+            update(e) {
+                const { list } = this
 
-export default {
-    components: {
-        draggable,
-        ListItem,
-    },
-
-    data() {
-        return {
-            drag: false,
-            newItemName: '',
-        }
-    },
-
-    computed: {
-        items: {
-            get() {
-                return this.$store.state.items.all;
+                this.$store.dispatch('lists/update', { list, name: e.target.value })
             },
 
-            set(items) {
-                this.$store.dispatch('items/updateAll', items)
-            }
-        },
+            remove() {
+                this.$store.dispatch('lists/delete', this.list);
+            },
 
-        syncing() {
-            return this.$store.state.items.syncing;
-        },
-    },
-
-    methods: {
-        addItem() {
-            if (this.newItemName.trim().length == 0) {
-                return;
-            }
-
-            this.$store.dispatch('items/add', {
-                name: this.newItemName,
-                list_id: this.$route.params.list_id,
-            })
-
-            this.newItemName = '';
-        },
-    },
-
-    created() {
-        this.$store.dispatch('items/fetch', this.$route.params.list_id);
-    },
-}
+            toggle() {
+                this.$store.dispatch('lists/toggle', this.list);
+            },
+        }
+    }
 </script>

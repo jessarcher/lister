@@ -7,10 +7,7 @@
 
         <draggable v-model="lists" :options="{handle: '.drag-handle', animation: 150}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
             <transition-group :name="!drag? 'list' : null">
-                <div v-for="(list, index) in lists" :key="index">
-                    <i class="fas fa-grip-vertical text-grey-dark drag-handle mx-4"></i>
-                    <router-link :to="'/lists/' + list.uuid">{{ list.name }}</router-link>
-                </div>
+                <list v-for="(list, index) in lists" :key="index" :list="list"></list>
             </transition-group>
         </draggable>
 
@@ -34,9 +31,12 @@
 <script>
 import draggable from 'vuedraggable'
 
+import List from './List';
+
 export default {
     components: {
         draggable,
+        List,
     },
 
     data() {

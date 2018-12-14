@@ -123,7 +123,7 @@ export default {
                     console.error(errors)
                     alert('Couldn\'t delete list')
                     // Add the list back
-                    commit('addList', list)
+                    commit('add', list)
                 })
                 .then(() => commit('setSyncing', false));
         }
