@@ -22,27 +22,27 @@
 <body class="bg-grey-lightest text-grey-dark">
     <div id="app">
         <nav>
-            <a href="{{ url('/') }}">
-                {{ config('app.name', 'Lister') }}
-            </a>
-            <ul>
+            <ul class="list-reset flex pl-4 pt-4">
+                <li class="pr-2">
+                    <router-link to="/">Home</router-link>
+                </li>
                 <!-- Authentication Links -->
                 @guest
-                    <li>
+                    <li class="pr-2">
                         <a href="{{ route('login') }}">{{ __('Login') }}</a>
                     </li>
-                    <li>
+                    <li class="pr-2">
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}">{{ __('Register') }}</a>
                         @endif
                     </li>
                 @else
-                    <li>
+                    <li class="pr-2">
                         <a href="#">
                             {{ Auth::user()->name }}
                         </a>
                     </li>
-                    <li>
+                    <li class="pr-2">
                         <a
                             href="{{ route('logout') }}"
                             onclick="event.preventDefault();
