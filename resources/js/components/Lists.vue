@@ -5,11 +5,15 @@
             <i v-if="syncing" class="fas fa-sync-alt fa-spin text-grey-darker text-base"></i>
         </h1>
 
-        <draggable v-model="lists" :options="{handle: '.drag-handle', animation: 150}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
+        <draggable v-if="lists.length" v-model="lists" :options="{handle: '.drag-handle', animation: 150}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
             <transition-group :name="!drag? 'list' : null">
                 <list v-for="(list, index) in lists" :key="index" :list="list"></list>
             </transition-group>
         </draggable>
+
+        <div v-else class="text-center">
+            <nothing-to-display class="w-1/2 h-auto mb-2"></nothing-to-display>
+        </div>
 
         <div class="flex pt-2 px-4 mb-4">
             <input
@@ -32,11 +36,13 @@
 import draggable from 'vuedraggable'
 
 import List from './List';
+import NothingToDisplay from './NothingToDisplay';
 
 export default {
     components: {
         draggable,
         List,
+        NothingToDisplay
     },
 
     data() {
