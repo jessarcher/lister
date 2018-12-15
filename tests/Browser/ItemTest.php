@@ -19,7 +19,7 @@ class ItemTest extends DuskTestCase
 
         $this->browse(function (Browser $browser) use ($user) {
             $browser->loginAs($user)
-                    ->visit('/home')
+                    ->visit('/app')
                     ->waitForText('My List')
                     ->type('@add-new-item-input', 'My first item')
                     ->keys('@add-new-item-input', ['{enter}'])

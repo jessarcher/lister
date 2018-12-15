@@ -34,8 +34,13 @@ import store from './store';
 
 import router from './router';
 
+import TheApp from './components/TheApp'
+
 const app = new Vue({
     el: '#app',
     store,
     router,
+    components: {
+        TheApp,
+    }
 });
