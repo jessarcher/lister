@@ -28,6 +28,8 @@ class AddListRelationshipToItems extends Migration
     public function down()
     {
         Schema::table('items', function (Blueprint $table) {
+            $table->dropForeign('items_list_id_foreign');
+
             $table->dropColumn('list_id');
         });
     }
