@@ -4,6 +4,7 @@
 /public/js
 /public/css
 /public/fonts
+/public/manifest.json
 /public/mix-manifest.json
 /public/sw.js
 /storage/*.key

@@ -30,6 +30,8 @@ mix.js('resources/js/app.js', 'public/js')
 
 mix.copy('./node_modules/@fortawesome/fontawesome-free/webfonts/', 'public/fonts/vendor/fontawesome/')
 
+mix.copy('resources/manifest.json', 'public/manifest.json')
+
 if (mix.inProduction()) {
     mix.version()
     mix.disableNotifications();

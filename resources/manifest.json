@@ -1,12 +1,12 @@
 {
   "name": "Lister",
   "short_name": "Lister",
-  "theme_color": "#2196f3",
-  "background_color": "#2196f3",
+  "theme_color": "#9561e2",
+  "background_color": "#ffffff",
   "display": "standalone",
   "orientation": "portrait",
-  "scope": "/",
-  "start_url": "/",
+  "scope": "/app",
+  "start_url": "/app",
   "icons": [
     {
       "src": "images/icons/icon-72x72.png",
