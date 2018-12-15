@@ -63,8 +63,8 @@
 </style>
 
 <script>
+import { mapState } from 'vuex'
 import draggable from 'vuedraggable'
-
 import NothingToDisplay from './NothingToDisplay';
 import ListItem from './ListItem';
 
@@ -83,6 +83,11 @@ export default {
     },
 
     computed: {
+        ...mapState('items', [
+            'loading',
+            'syncing',
+        ]),
+
         list() {
             return this.$store.getters['lists/byUuid'](this.$route.params.list_id)
         },
@@ -105,14 +110,6 @@ export default {
             set(items) {
                 this.$store.dispatch('items/updateAll', items)
             }
-        },
-
-        loading() {
-            return this.$store.state.items.loading;
-        },
-
-        syncing() {
-            return this.$store.state.items.syncing;
         },
     },
 

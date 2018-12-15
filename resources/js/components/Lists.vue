@@ -39,8 +39,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import draggable from 'vuedraggable'
-
 import List from './List';
 import NothingToDisplay from './NothingToDisplay';
 
@@ -59,6 +59,11 @@ export default {
     },
 
     computed: {
+        ...mapState('lists', [
+            'loading',
+            'syncing',
+        ]),
+
         lists: {
             get() {
                 return this.$store.state.lists.all;
@@ -67,14 +72,6 @@ export default {
             set(lists) {
                 this.$store.dispatch('lists/updateAll', lists)
             }
-        },
-
-        loading() {
-            return this.$store.state.lists.loading;
-        },
-
-        syncing() {
-            return this.$store.state.lists.syncing;
         },
     },
 
