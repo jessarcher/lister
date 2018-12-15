@@ -1,6 +1,6 @@
 <template>
-    <div class="bg-white shadow rounded py-4 mb-4">
-        <h1 class="text-uppercase text-base text-grey-darker pb-2 px-4">
+    <div>
+        <h1 class="text-uppercase text-base text-grey-darkest my-3 text-xl px-4">
             My Lists
             <i v-if="syncing" class="fas fa-sync-alt fa-spin text-grey-darker text-base"></i>
         </h1>
@@ -11,13 +11,13 @@
             </transition-group>
         </draggable>
 
-        <div class="flex pt-2 px-4">
+        <div class="flex pt-2 px-4 mb-4">
             <input
                 type="text"
                 v-model="newListName"
-                placeholder="Add a new list..."
+                :placeholder="'Add ' + (lists.length ? 'another' : 'your first') + ' list...'"
                 @keyup.enter="addList"
-                class="flex-grow min-w-0"
+                class="flex-grow min-w-0 bg-transparent p-1 mr-2"
                 dusk="add-new-list-input"
             >
 
@@ -77,7 +77,7 @@ export default {
     },
 
     created() {
-        this.$store.dispatch('lists/fetch');
+        // this.$store.dispatch('lists/fetch');
     },
 }
 </script>

@@ -6,6 +6,18 @@ export default {
         syncing: false,
     },
 
+    getters: {
+        byUuid: (state) => (uuid) => {
+            const list = state.all.find(list => list.uuid === uuid)
+
+            if (list) {
+                return list
+            }
+
+            return {}
+        },
+    },
+
     mutations: {
         setSyncing(state, syncing) {
             state.syncing = syncing;

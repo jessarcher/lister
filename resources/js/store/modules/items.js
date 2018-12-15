@@ -3,10 +3,15 @@ export default {
 
     state: {
         all: [],
+        loading: false,
         syncing: false,
     },
 
     mutations: {
+        setLoading(state, loading) {
+            state.loading = loading;
+        },
+
         setSyncing(state, syncing) {
             state.syncing = syncing;
         },
@@ -36,13 +41,13 @@ export default {
 
     actions: {
         fetch({ commit }, listId) {
-            commit('setSyncing', true);
+            commit('setLoading', true);
 
             axios
                 .get('/api/lists/' + listId + '/items')
                 .then(response => commit('populate', response.data.data))
                 .catch(errors => console.error(errors))
-                .then(() => commit('setSyncing', false));
+                .then(() => commit('setLoading', false));
         },
 
         add({ commit, state }, item) {

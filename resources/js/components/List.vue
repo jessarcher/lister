@@ -2,16 +2,8 @@
     <div class="py-1 flex items-center" dusk="list">
         <i class="fas fa-grip-vertical text-grey-dark drag-handle px-4 py-2"></i>
 
-        <input
-            type="text"
-            :value="list.name"
-            @blur="update"
-            class="flex-grow mr-3 min-w-0 text-grey-darkest bg-transparent text-lg"
-            dusk="list-input"
-            >
-
-        <router-link :to="'/lists/' + list.uuid">
-            <i class="fas fa-arrow-circle-right px-4 py-2 text-purple"></i>
+        <router-link :to="'/lists/' + list.uuid" class="flex-grow py-2 no-underline text-purple text-lg">
+            {{ list.name }}
         </router-link>
 
         <button @click="remove" class="px-4 py-2">
