@@ -16,7 +16,7 @@ class AddListRelationshipToItems extends Migration
         Schema::table('items', function (Blueprint $table) {
             $table->unsignedInteger('list_id')->nullable();
 
-            $table->foreign('list_id')->references('id')->on('lists');
+            $table->foreign('list_id')->references('id')->on('lists')->onDelete('cascade');
         });
     }
 
