@@ -5,29 +5,35 @@
             <i v-if="syncing" class="fas fa-sync-alt fa-spin text-grey-darker text-base"></i>
         </h1>
 
-        <draggable v-if="lists.length" v-model="lists" :options="{handle: '.drag-handle', animation: 150}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
-            <transition-group :name="!drag? 'list' : null">
-                <list v-for="(list, index) in lists" :key="index" :list="list"></list>
-            </transition-group>
-        </draggable>
-
-        <div v-else class="text-center">
-            <nothing-to-display class="w-1/2 h-auto mb-2"></nothing-to-display>
+        <div v-if="loading" class="text-center p-5">
+            <i class="fas fa-spinner fa-pulse text-5xl"></i>
         </div>
 
-        <div class="flex pt-2 px-4 mb-4">
-            <input
-                type="text"
-                v-model="newListName"
-                :placeholder="'Add ' + (lists.length ? 'another' : 'your first') + ' list...'"
-                @keyup.enter="addList"
-                class="flex-grow min-w-0 bg-transparent p-1 mr-2"
-                dusk="add-new-list-input"
-            >
+        <div v-else>
+            <draggable v-if="lists.length" v-model="lists" :options="{handle: '.drag-handle', animation: 150}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
+                <transition-group :name="!drag? 'list' : null">
+                    <list v-for="(list, index) in lists" :key="index" :list="list"></list>
+                </transition-group>
+            </draggable>
 
-            <button @click="addList" class="border rounded border-grey py-1 px-3 text-sm" dusk="add-new-list-button">
-                Add
-            </button>
+            <div v-else class="text-center">
+                <nothing-to-display class="w-1/2 h-auto mb-2"></nothing-to-display>
+            </div>
+
+            <div class="flex pt-2 px-4 mb-4">
+                <input
+                    type="text"
+                    v-model="newListName"
+                    :placeholder="'Add ' + (lists.length ? 'another' : 'your first') + ' list...'"
+                    @keyup.enter="addList"
+                    class="flex-grow min-w-0 bg-transparent p-1 mr-2"
+                    dusk="add-new-list-input"
+                >
+
+                <button @click="addList" class="border rounded border-grey py-1 px-3 text-sm" dusk="add-new-list-button">
+                    Add
+                </button>
+            </div>
         </div>
     </div>
 </template>
@@ -61,6 +67,10 @@ export default {
             set(lists) {
                 this.$store.dispatch('lists/updateAll', lists)
             }
+        },
+
+        loading() {
+            return this.$store.state.lists.loading;
         },
 
         syncing() {
