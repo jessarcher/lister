@@ -6,7 +6,7 @@
             {{ list.name }}
         </router-link>
 
-        <button @click="remove" class="px-4 py-2">
+        <button @click="remove(list)" class="px-4 py-2">
             <i class="fas fa-times"></i>
         </button>
     </div>
@@ -19,23 +19,21 @@
 </style>
 
 <script>
-    export default {
-        props: ['list'],
+import { mapActions } from 'vuex'
 
-        methods: {
-            update(e) {
-                const { list } = this
+export default {
+    props: ['list'],
 
-                this.$store.dispatch('lists/update', { list, name: e.target.value })
-            },
+    methods: {
+        ...mapActions('lists', [
+            'remove',
+        ]),
 
-            remove() {
-                this.$store.dispatch('lists/delete', this.list);
-            },
+        update(e) {
+            const { list } = this
 
-            toggle() {
-                this.$store.dispatch('lists/toggle', this.list);
-            },
-        }
+            this.$store.dispatch('lists/update', { list, name: e.target.value })
+        },
     }
+}
 </script>

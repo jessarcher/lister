@@ -5,7 +5,7 @@
         <input
             type="checkbox"
             :checked="item.complete"
-            @change="toggle"
+            @change="toggle(item)"
             class="mr-3">
 
         <input
@@ -17,7 +17,7 @@
             dusk="item-input"
             >
 
-        <button @click="remove" class="px-4 py-2">
+        <button @click="remove(item)" class="px-4 py-2">
             <i class="fas fa-times"></i>
         </button>
     </div>
@@ -30,23 +30,22 @@
 </style>
 
 <script>
-    export default {
-        props: ['item'],
+import { mapActions } from 'vuex'
 
-        methods: {
-            update(e) {
-                const { item } = this
+export default {
+    props: ['item'],
 
-                this.$store.dispatch('items/update', { item, name: e.target.value })
-            },
+    methods: {
+        ...mapActions('items', [
+            'remove',
+            'toggle',
+        ]),
 
-            remove() {
-                this.$store.dispatch('items/delete', this.item);
-            },
+        update(e) {
+            const { item } = this
 
-            toggle() {
-                this.$store.dispatch('items/toggle', this.item);
-            },
-        }
+            this.$store.dispatch('items/update', { item, name: e.target.value })
+        },
     }
+}
 </script>

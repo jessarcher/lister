@@ -41,7 +41,7 @@ export default {
             Vue.set(list, 'uuid', uuid)
         },
 
-        delete(state, list) {
+        remove(state, list) {
             state.all.splice(state.all.indexOf(list), 1)
         },
 
@@ -80,7 +80,7 @@ export default {
                 .catch(errors => {
                     console.error(errors)
                     alert('Couldn\'t save list')
-                    commit('delete', list)
+                    commit('remove', list)
                 })
                 .then(() => commit('setSyncing', false))
         },
@@ -129,8 +129,8 @@ export default {
                 .then(() => commit('setSyncing', false));
         },
 
-        delete({ commit }, list) {
-            commit('delete', list);
+        remove({ commit }, list) {
+            commit('remove', list);
 
             commit('setSyncing', true);
 
