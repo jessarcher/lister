@@ -95,4 +95,34 @@ class Item extends Model
     {
         return $this->belongsTo(ItemList::class, 'list_id');
     }
+
+    /**
+     * The user that created this item
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /**
+     * The user that updated this item
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
+
+    /**
+     * The user that completed this item
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function completedBy()
+    {
+        return $this->belongsTo(User::class, 'completed_by');
+    }
 }

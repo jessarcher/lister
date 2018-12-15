@@ -61,4 +61,24 @@ class ItemList extends Model
     {
         return $this->hasMany(Item::class, 'list_id');
     }
+
+    /**
+     * The user that created this item list
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function createdBy()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
+    /**
+     * The user that updated this item list
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function updatedBy()
+    {
+        return $this->belongsTo(User::class, 'updated_by');
+    }
 }
