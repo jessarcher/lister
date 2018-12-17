@@ -17,7 +17,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return ItemResource::collection(Item::orderBy('order')->get());
+        return ItemResource::collection(Item::where('created_by', Auth::user()->id)->orderBy('order')->get());
     }
 
     /**

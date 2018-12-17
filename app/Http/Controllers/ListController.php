@@ -17,7 +17,7 @@ class ListController extends Controller
      */
     public function index()
     {
-        return ItemListResource::collection(ItemList::orderBy('order')->get());
+        return ItemListResource::collection(ItemList::where('created_by', Auth::user()->id)->orderBy('order')->get());
     }
 
     /**
