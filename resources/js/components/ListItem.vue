@@ -25,7 +25,7 @@
 
 <style>
 .sortable-chosen {
-    @apply bg-blue-lightest;
+    @apply bg-purple-lightest;
 }
 </style>
 
