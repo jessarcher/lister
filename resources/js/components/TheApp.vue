@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav class="bg-purple shadow text-white flex justify-between px-4 py-2">
+        <nav class="bg-purple shadow text-white flex justify-between px-4 py-3">
             <router-link to="/" class="text-purple-lightest no-underline">Home</router-link>
 
             <a
