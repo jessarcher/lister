@@ -35,10 +35,8 @@ class ListController extends Controller
 
         $itemList = (new ItemList)->forceFill(
             $data + [
-                'created_by' => 1,
-                'updated_by' => 1,
-                // 'created_by' => Auth::user()->id,
-                // 'updated_by' => Auth::user()->id,
+                'created_by' => Auth::user()->id,
+                'updated_by' => Auth::user()->id,
             ]
         );
 
@@ -74,8 +72,7 @@ class ListController extends Controller
 
         $list->forceFill(
             $data + [
-                'updated_by' => 1,
-                // 'updated_by' => Auth::user()->id,
+                'updated_by' => Auth::user()->id,
             ]
         );
 
@@ -93,7 +90,10 @@ class ListController extends Controller
     public function updateMany(Request $request)
     {
         foreach ($request->all() as $itemList) {
-            ItemList::where('uuid', $itemList['uuid'])->update(['order' => $itemList['order']]);
+            ItemList::where('uuid', $itemList['uuid'])->update([
+                'order' => $itemList['order'],
+                'updated_by' => Auth::user()->id,
+            ]);
         }
 
         return response(null, 204);

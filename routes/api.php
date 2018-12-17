@@ -13,15 +13,17 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return $request->user();
+    });
+
+    Route::patch('lists/{itemList}/items', 'ListItemController@updateMany');
+    Route::resource('lists/{itemList}/items', 'ListItemController');
+
+    Route::patch('lists', 'ListController@updateMany');
+    Route::resource('lists', 'ListController');
+
+    Route::patch('items', 'ItemController@updateMany');
+    Route::resource('items', 'ItemController');
 });
-
-Route::patch('lists/{itemList}/items', 'ListItemController@updateMany');
-Route::resource('lists/{itemList}/items', 'ListItemController');
-
-Route::patch('lists', 'ListController@updateMany');
-Route::resource('lists', 'ListController');
-
-Route::patch('items', 'ItemController@updateMany');
-Route::resource('items', 'ItemController');

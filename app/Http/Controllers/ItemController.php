@@ -35,10 +35,8 @@ class ItemController extends Controller
 
         $item = (new Item)->forceFill(
             $data + [
-                'created_by' => 1,
-                'updated_by' => 1,
-                // 'created_by' => Auth::user()->id,
-                // 'updated_by' => Auth::user()->id,
+                'created_by' => Auth::user()->id,
+                'updated_by' => Auth::user()->id,
             ]
         );
 
@@ -82,8 +80,7 @@ class ItemController extends Controller
 
         $item->forceFill(
             $data + [
-                'updated_by' => 1,
-                // 'updated_by' => Auth::user()->id,
+                'updated_by' => Auth::user()->id,
             ]
         );
 
@@ -100,7 +97,7 @@ class ItemController extends Controller
     public function updateMany(Request $request)
     {
         foreach ($request->all() as $item) {
-            Item::where('uuid', $item['uuid'])->update(['order' => $item['order']]);
+            Item::where('uuid', $item['uuid'])->update(['order' => $item['order'], 'updated_by' => Auth::user()->id]);
         }
 
         return response(null, 204);
