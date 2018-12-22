@@ -1,3 +1,5 @@
+import { handleAxiosError } from '../../helpers.js'
+
 export default {
     namespaced: true,
 
@@ -46,7 +48,7 @@ export default {
             axios
                 .get('/api/lists/' + listId + '/items')
                 .then(response => commit('populate', response.data.data))
-                .catch(errors => console.error(errors))
+                .catch(error => handleAxiosError(error))
                 .then(() => commit('setLoading', false));
         },
 
@@ -66,9 +68,8 @@ export default {
                     item,
                     uuid: response.data.data.uuid,
                 }))
-                .catch(errors => {
-                    console.error(errors)
-                    alert('Couldn\'t save item')
+                .catch(error => {
+                    handleAxiosError(error);
                     commit('remove', item)
                 })
                 .then(() => commit('setSyncing', false))
@@ -84,7 +85,7 @@ export default {
                     name,
                     complete,
                 })
-                .catch(errors => console.error(errors))
+                .catch(error => handleAxiosError(error))
                 .then(() => commit('setSyncing', false));
         },
 
@@ -119,7 +120,7 @@ export default {
 
             axios
                 .patch('/api/items/', newOrders)
-                .catch(errors => console.error(errors))
+                .catch(error => handleAxiosError(error))
                 .then(() => commit('setSyncing', false));
         },
 
@@ -130,9 +131,8 @@ export default {
 
             axios
                 .delete('/api/items/' + item.uuid)
-                .catch(errors => {
-                    console.error(errors)
-                    alert('Couldn\'t delete item')
+                .catch(error => {
+                    handleAxiosError(error);
                     // Add the item back
                     commit('addItem', item)
                 })
