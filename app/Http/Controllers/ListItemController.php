@@ -37,11 +37,9 @@ class ListItemController extends Controller
 
         $item = (new Item)->forceFill(
             $data + [
-                'list_id' => $itemList->getKey(),
-                'created_by' => 1,
-                'updated_by' => 1,
-                // 'created_by' => Auth::user()->id,
-                // 'updated_by' => Auth::user()->id,
+                'list_id'    => $itemList->getKey(),
+                'created_by' => Auth::user()->id,
+                'updated_by' => Auth::user()->id,
             ]
         );
 
@@ -87,8 +85,7 @@ class ListItemController extends Controller
 
         $item->forceFill(
             $data + [
-                'updated_by' => 1,
-                // 'updated_by' => Auth::user()->id,
+                'updated_by' => Auth::user()->id,
             ]
         );
 
