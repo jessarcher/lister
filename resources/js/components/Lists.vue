@@ -26,7 +26,7 @@
                     v-model="newListName"
                     :placeholder="'Add ' + (lists.length ? 'another' : 'your first') + ' list...'"
                     @keyup.enter="addList"
-                    class="flex-grow min-w-0 bg-transparent p-1 mr-2"
+                    class="flex-grow min-w-0 bg-transparent p-1 mr-2 truncate"
                     dusk="add-new-list-input"
                 >
 

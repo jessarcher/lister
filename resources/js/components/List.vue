@@ -2,7 +2,7 @@
     <div class="py-1 flex items-center" dusk="list">
         <i class="fas fa-grip-vertical text-grey-dark drag-handle px-4 py-2"></i>
 
-        <router-link :to="'/lists/' + list.uuid" class="flex-grow py-2 no-underline text-purple text-lg">
+        <router-link :to="'/lists/' + list.uuid" class="flex-grow py-2 no-underline text-purple text-lg truncate">
             {{ list.name }}
         </router-link>
 

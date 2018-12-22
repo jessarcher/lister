@@ -12,7 +12,7 @@
             type="text"
             :value="item.name"
             @blur="update"
-            class="flex-grow mr-3 min-w-0 text-grey-darkest bg-transparent text-lg py-1"
+            class="flex-grow mr-3 min-w-0 text-grey-darkest bg-transparent text-lg py-1 truncate"
             :class="{ 'line-through': item.complete }"
             dusk="item-input"
             >
