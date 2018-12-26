@@ -1,13 +1,13 @@
 <template>
     <div class="py-1 flex items-center" dusk="list">
-        <i class="fas fa-grip-vertical text-grey-dark drag-handle px-4 py-2"></i>
+        <i class="fas fa-grip-vertical text-grey drag-handle px-4 py-2"></i>
 
         <router-link :to="'/lists/' + list.uuid" class="flex-grow py-2 no-underline text-purple text-lg truncate">
             {{ list.name }}
         </router-link>
 
         <button @click="remove(list)" class="px-4 py-2">
-            <i class="fas fa-times"></i>
+            <i class="fas fa-times text-grey-dark"></i>
         </button>
     </div>
 </template>

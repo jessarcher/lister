@@ -1,6 +1,6 @@
 <template>
     <div class="py-1 flex items-center" :class="{ 'opacity-50': item.complete }" dusk="item">
-        <i class="fas fa-grip-vertical text-grey-dark drag-handle px-4 py-2"></i>
+        <i class="fas fa-grip-vertical text-grey drag-handle px-4 py-2"></i>
 
         <input
             type="checkbox"
@@ -18,7 +18,7 @@
             >
 
         <button @click="remove(item)" class="px-4 py-2">
-            <i class="fas fa-times"></i>
+            <i class="fas fa-times text-grey-dark"></i>
         </button>
     </div>
 </template>
