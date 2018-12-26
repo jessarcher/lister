@@ -10,6 +10,10 @@ export default {
         autosize(this.$refs.textarea)
     },
 
+    updated() {
+        autosize.update(this.$refs.textarea)
+    },
+
     methods: {
         blur(e) {
             this.$emit('blur', e)
