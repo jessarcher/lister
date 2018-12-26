@@ -8,14 +8,12 @@
             @change="toggle(item)"
             class="mr-3">
 
-        <input
-            type="text"
-            :value="item.name"
+        <autosize-textarea
             @blur="update"
-            class="flex-grow mr-3 min-w-0 text-grey-darkest bg-transparent text-lg py-1 truncate"
+            class="flex-grow mr-3 min-w-0 text-grey-darkest bg-transparent text-lg py-1"
             :class="{ 'line-through': item.complete }"
             dusk="item-input"
-            >
+            >{{ item.name }}</autosize-textarea>
 
         <button @click="remove(item)" class="px-4 py-2">
             <i class="fas fa-times text-grey-dark"></i>
@@ -31,8 +29,13 @@
 
 <script>
 import { mapActions } from 'vuex'
+import AutosizeTextarea from './AutosizeTextarea'
 
 export default {
+    components: {
+        AutosizeTextarea,
+    },
+
     props: ['item'],
 
     methods: {
