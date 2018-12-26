@@ -14,6 +14,8 @@
         </div>
 
         <div v-else>
+            <hr class="m-0">
+
             <draggable v-if="items.length" v-model="items" :options="{handle: '.drag-handle', animation: 150}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
                 <transition-group :name="!drag? 'list' : null">
                     <list-item v-for="(item, index) in items" :key="index" :item="item"></list-item>
@@ -43,6 +45,10 @@
 </template>
 
 <style>
+hr {
+    border-top: 1px solid config('colors.white');
+    border-bottom: 1px solid config('colors.grey-light');
+}
 .list-move {
     transition: transform 0.3s;
 }
