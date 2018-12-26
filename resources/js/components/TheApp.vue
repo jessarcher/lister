@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav class="bg-purple shadow text-white flex justify-between px-4 py-3">
+        <nav class="bg-grey-darkest shadow text-white flex justify-between px-4 py-3">
             <router-link to="/" class="text-purple-lightest no-underline">Home</router-link>
 
             <a
@@ -10,6 +10,7 @@
             >
                 Logout
             </a>
+
             <form id="logout-form" action="/logout" method="POST" style="display: none;">
                 <input type="hidden" name="_token" :value="csrf">
             </form>
