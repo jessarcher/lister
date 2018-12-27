@@ -7,6 +7,7 @@ export default {
         all: [],
         loading: false,
         syncing: false,
+        failed: false,
     },
 
     getters: {
@@ -28,6 +29,10 @@ export default {
 
         setSyncing(state, syncing) {
             state.syncing = syncing;
+        },
+
+        setFailed(state, failed) {
+            state.failed = failed;
         },
 
         populate(state, lists) {
@@ -62,6 +67,8 @@ export default {
                 .then(response => commit('populate', response.data.data))
                 .catch(error => {
                     handleAxiosGetError(error)
+
+                    commit('setFailed', true);
                 })
                 .then(() => commit('setLoading', false));
         },

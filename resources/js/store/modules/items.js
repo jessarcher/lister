@@ -7,6 +7,7 @@ export default {
         all: [],
         loading: false,
         syncing: false,
+        failed: false,
     },
 
     mutations: {
@@ -16,6 +17,10 @@ export default {
 
         setSyncing(state, syncing) {
             state.syncing = syncing;
+        },
+
+        setFailed(state, failed) {
+            state.failed = failed;
         },
 
         populate(state, items) {
@@ -53,6 +58,8 @@ export default {
                 .then(response => commit('populate', response.data.data))
                 .catch(error => {
                     handleAxiosGetError(error)
+
+                    commit('setFailed', true);
                 })
                 .then(() => commit('setLoading', false));
         },

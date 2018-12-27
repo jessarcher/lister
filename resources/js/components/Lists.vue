@@ -13,6 +13,11 @@
             <i class="fas fa-spinner fa-pulse text-5xl"></i>
         </div>
 
+        <div v-else-if="true" class="text-center p-5">
+            <i class="fa fa-7x fa-exclamation-triangle mb-4"></i>
+            <p class="text-lg">There was an error</p>
+        </div>
+
         <div v-else>
             <hr class="mb-0">
 
@@ -79,6 +84,7 @@ export default {
         ...mapState('lists', [
             'loading',
             'syncing',
+            'failed',
         ]),
 
         lists: {
