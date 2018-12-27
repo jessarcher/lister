@@ -2,6 +2,10 @@ module.exports = {
     cacheId: 'lister',
     importWorkboxFrom: 'local',
     swDest: 'sw.js',
+    globDirectory: 'public/',
+    globPatterns: [
+        '**/*.{ico,eot,svg,ttf,woff,woff2,png,jpg,jpeg,gif,bmp,json,html,txt}',
+    ],
     runtimeCaching: [
         {
             urlPattern: '/app',
