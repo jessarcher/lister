@@ -13,7 +13,7 @@
             <i class="fas fa-spinner fa-pulse text-5xl"></i>
         </div>
 
-        <div v-else-if="true" class="text-center p-5">
+        <div v-else-if="failed" class="text-center p-5">
             <i class="fa fa-7x fa-exclamation-triangle mb-4"></i>
             <p class="text-lg">There was an error</p>
         </div>
