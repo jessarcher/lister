@@ -1,9 +1,9 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="flex items-center justify-center min-h-screen">
+<div class="flex items-center justify-center min-h-screen bg-grey-lightest">
     <div class="w-full max-w-sm">
-        <div class="bg-white shadow rounded m-4 border-t-4 border-purple">
+        <div class="bg-white shadow-lg rounded m-4">
             <form method="POST" action="{{ route('login') }}">
                 @csrf
 
@@ -62,8 +62,8 @@
                     <button
                         type="submit"
                         class="
-                            bg-purple
-                            hover:bg-purple-dark
+                            bg-grey-darkest
+                            hover:bg-grey-darker
                             text-white
                             font-bold
                             py-2
@@ -75,7 +75,7 @@
                     </button>
 
                     <a
-                        class="inline-block align-baseline font-bold text-sm text-purple hover:text-purple-darker"
+                        class="inline-block align-baseline font-bold text-sm text-grey-darkest hover:text-grey-darker"
                         href="{{ route('password.request') }}">
                         {{ __('Forgot Your Password?') }}
                     </a>
