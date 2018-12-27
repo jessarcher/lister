@@ -1,20 +1,8 @@
 <template>
     <div>
-        <nav class="bg-grey-darkest shadow text-white flex justify-between px-4 py-3">
-            <router-link to="/" class="text-purple-lightest no-underline">Home</router-link>
+        <the-header></the-header>
 
-            <a
-                href="/logout"
-                onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
-                class="text-purple-lightest no-underline"
-            >
-                Logout
-            </a>
-
-            <form id="logout-form" action="/logout" method="POST" style="display: none;">
-                <input type="hidden" name="_token" :value="csrf">
-            </form>
-        </nav>
+        <the-sidebar></the-sidebar>
 
         <main>
             <router-view></router-view>
@@ -22,13 +10,15 @@
     </div>
 </template>
 
+
 <script>
+import TheHeader from './TheHeader'
+import TheSidebar from './TheSidebar'
+
 export default {
-    computed: {
-        csrf() {
-            const token = document.head.querySelector('meta[name="csrf-token"]');
-            return token.content;
-        }
+    components: {
+        TheHeader,
+        TheSidebar,
     },
 
     created() {

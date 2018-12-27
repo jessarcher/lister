@@ -30,10 +30,8 @@ hr {
     border-top: 1px solid config('colors.white');
     border-bottom: 1px solid config('colors.grey-light');
 }
-.sortable-chosen {
-    hr {
-        @apply hidden;
-    }
+.sortable-chosen hr {
+    @apply hidden;
 }
 .sortable-ghost {
     @apply opacity-25;
@@ -43,6 +41,7 @@ hr {
 }
 .sortable-drag {
     @apply bg-white;
+    @apply text-grey-dark;
     @apply shadow-md;
     @apply rounded;
 }

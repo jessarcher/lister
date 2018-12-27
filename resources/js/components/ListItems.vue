@@ -14,13 +14,16 @@
         </div>
 
         <div v-else>
-            <hr class="m-0">
 
-            <draggable v-if="items.length" v-model="items" :options="{handle: '.drag-handle', animation: 150}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
-                <transition-group :name="!drag? 'list' : null">
-                    <list-item v-for="(item, index) in items" :key="index" :item="item"></list-item>
-                </transition-group>
-            </draggable>
+            <div v-if="items.length">
+                <hr class="m-0">
+
+                <draggable v-model="items" :options="{handle: '.drag-handle', animation: 150}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
+                    <transition-group :name="!drag? 'list' : null">
+                        <list-item v-for="(item, index) in items" :key="item.uuid" :item="item"></list-item>
+                    </transition-group>
+                </draggable>
+            </div>
 
             <div v-else class="text-center">
                 <nothing-to-display class="w-1/2 h-auto mb-2"></nothing-to-display>
@@ -88,6 +91,10 @@ export default {
         }
     },
 
+    watch: {
+        '$route': 'fetch',
+    },
+
     computed: {
         ...mapState('items', [
             'loading',
@@ -132,10 +139,14 @@ export default {
 
             this.newItemName = '';
         },
+
+        fetch() {
+            this.$store.dispatch('items/fetch', this.$route.params.list_id);
+        },
     },
 
     created() {
-        this.$store.dispatch('items/fetch', this.$route.params.list_id);
+        this.fetch();
     },
 }
 </script>

@@ -1,18 +1,24 @@
 <template>
     <div>
-        <h1 class="text-uppercase text-base text-grey-darkest my-3 text-xl px-4">
-            My Lists
+        <button @click="toggleSidebar" class="px-4 py-3 w-4 align-center">
+            <i class="fa fa-times text-white"></i>
+        </button>
+
+        <h2 class="uppercase text-xs mx-4 mt-2">
+            Lists
             <i v-if="syncing" class="fas fa-sync-alt fa-spin text-grey-darker text-base"></i>
-        </h1>
+        </h2>
 
         <div v-if="loading" class="text-center p-5">
             <i class="fas fa-spinner fa-pulse text-5xl"></i>
         </div>
 
         <div v-else>
+            <hr class="mb-0">
+
             <draggable v-if="lists.length" v-model="lists" :options="{handle: '.drag-handle', animation: 150}" :no-transition-on-drag="true" @start="drag=true" @end="drag=false">
                 <transition-group :name="!drag? 'list' : null">
-                    <list v-for="(list, index) in lists" :key="index" :list="list"></list>
+                    <list v-for="(list, index) in lists" :key="list.uuid" :list="list"></list>
                 </transition-group>
             </draggable>
 
@@ -26,11 +32,11 @@
                     v-model="newListName"
                     :placeholder="'Add ' + (lists.length ? 'another' : 'your first') + ' list...'"
                     @keyup.enter="addList"
-                    class="flex-grow min-w-0 bg-transparent p-1 mr-2 truncate"
+                    class="flex-grow min-w-0 bg-transparent p-1 mr-2 truncate text-grey-light"
                     dusk="add-new-list-input"
                 >
 
-                <button @click="addList" class="border rounded border-grey py-1 px-3 text-sm" dusk="add-new-list-button">
+                <button @click="addList" class="border rounded border-grey-dark py-1 px-3 text-sm text-grey-light" dusk="add-new-list-button">
                     Add
                 </button>
             </div>
@@ -38,8 +44,15 @@
     </div>
 </template>
 
+<style scoped>
+hr {
+    border-top: 1px solid config('colors.black');
+    border-bottom: 1px solid config('colors.grey-darker');
+}
+</style>
+
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import draggable from 'vuedraggable'
 import List from './List';
 import NothingToDisplay from './NothingToDisplay';
@@ -59,6 +72,10 @@ export default {
     },
 
     computed: {
+        ...mapState([
+            'showSidebar',
+        ]),
+
         ...mapState('lists', [
             'loading',
             'syncing',
@@ -76,6 +93,10 @@ export default {
     },
 
     methods: {
+        ...mapMutations([
+            'toggleSidebar',
+        ]),
+
         addList() {
             if (this.newListName.trim().length == 0) {
                 return;
