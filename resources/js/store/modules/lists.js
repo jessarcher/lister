@@ -1,4 +1,4 @@
-import { handleAxiosError } from '../../helpers.js'
+import { handleAxiosGetError, handleAxoisPostError } from '../../helpers.js'
 
 export default {
     namespaced: true,
@@ -55,11 +55,14 @@ export default {
     actions: {
         fetch({ commit }) {
             commit('setLoading', true);
+            commit('setFailed', false);
 
             axios
                 .get('/api/lists')
                 .then(response => commit('populate', response.data.data))
-                .catch(error => handleAxiosError(error))
+                .catch(error => {
+                    handleAxiosGetError(error)
+                })
                 .then(() => commit('setLoading', false));
         },
 
@@ -80,7 +83,7 @@ export default {
                     uuid: response.data.data.uuid,
                 }))
                 .catch(error => {
-                    handleAxiosError(error);
+                    handleAxiosPostError(error);
 
                     // If the sever responded with an error or not request was made, background-sync won't add it later
                     if (error.response || ! error.request) {
@@ -102,7 +105,7 @@ export default {
                     name,
                 })
                 .catch(error => {
-                    handleAxiosError(error)
+                    handleAxiosPostError(error)
 
                     // If the sever responded with an error or not request was made, background-sync won't update it later
                     if (error.response || ! error.request) {
@@ -139,7 +142,7 @@ export default {
 
             axios
                 .patch('/api/lists/', newListOrders)
-                .catch(error => handleAxiosError(error))
+                .catch(error => handleAxiosPostError(error))
                 .then(() => commit('setSyncing', false));
         },
 
@@ -151,7 +154,7 @@ export default {
             axios
                 .delete('/api/lists/' + list.uuid)
                 .catch(error => {
-                    handleAxiosError(error);
+                    handleAxiosPostError(error);
 
                     // If the sever responded with an error or not request was
                     // made, background-sync won't remove it later so we need to
