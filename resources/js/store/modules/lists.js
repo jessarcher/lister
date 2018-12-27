@@ -1,4 +1,5 @@
 import { handleAxiosGetError, handleAxoisPostError } from '../../helpers.js'
+import uuid from 'uuid/v4'
 
 export default {
     namespaced: true,
@@ -74,6 +75,7 @@ export default {
         },
 
         add({ commit, state }, list) {
+            list.uuid = uuid();
             list.order = state.all.length + 1;
 
             commit('add', list);
@@ -82,13 +84,14 @@ export default {
 
             axios
                 .post('/api/lists', {
+                    uuid: list.uuid,
                     name: list.name,
                     order: list.order
                 })
-                .then(response => commit('update', {
-                    list,
-                    uuid: response.data.data.uuid,
-                }))
+                // .then(response => commit('update', {
+                //     list,
+                //     uuid: response.data.data.uuid,
+                // }))
                 .catch(error => {
                     handleAxiosPostError(error);
 

@@ -31,6 +31,7 @@ class ListItemController extends Controller
     public function store(Request $request, ItemList $itemList)
     {
         $data = $request->validate([
+            'uuid'  => 'nullable|uuid',
             'name'  => 'required|string',
             'order' => 'integer',
         ]);
