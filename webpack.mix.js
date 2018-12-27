@@ -12,29 +12,19 @@ const tailwindcss = require('tailwindcss');
  |
  */
 
-mix.sass('resources/sass/app.scss', 'public/css')
+if (mix.inProduction()) {
+    mix.disableNotifications();
+}
+
+mix.js('resources/js/app.js', 'public/js')
+    .sourceMaps()
+    .extract()
+    .sass('resources/sass/app.scss', 'public/css')
+    .sourceMaps()
     .options({
         processCssUrls: false,
         postCss: [ tailwindcss('./tailwind.js') ],
-    });
-
-mix.js('resources/js/app.js', 'public/js')
-    .extract([
-        'axios',
-        'lodash',
-        'popper.js',
-        'vue',
-        'vuedraggable',
-        'vuex',
-    ]);
-
-mix.copy('./node_modules/@fortawesome/fontawesome-free/webfonts/', 'public/fonts/vendor/fontawesome/')
-
-mix.copy('resources/manifest.json', 'public/manifest.json')
-
-if (mix.inProduction()) {
-    mix.version()
-    mix.disableNotifications();
-} else {
-    mix.sourceMaps();
-}
+    })
+    .copy('./node_modules/@fortawesome/fontawesome-free/webfonts/', 'public/fonts/vendor/fontawesome/')
+    .copy('resources/manifest.json', 'public/manifest.json')
+    .version();
