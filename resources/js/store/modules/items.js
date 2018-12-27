@@ -70,12 +70,21 @@ export default {
                 }))
                 .catch(error => {
                     handleAxiosError(error);
-                    commit('remove', item)
+
+                    // If the sever responded with an error or not request was made, background-sync won't add it later
+                    if (error.response || ! error.request) {
+                        commit('remove', item)
+                    }
                 })
                 .then(() => commit('setSyncing', false))
         },
 
         update({ commit }, { item, name = item.name, complete = item.complete }) {
+            let original = {
+                name: item.name,
+                complete: item.complete,
+            };
+
             commit('update', { item, name, complete})
 
             commit('setSyncing', true)
@@ -85,7 +94,14 @@ export default {
                     name,
                     complete,
                 })
-                .catch(error => handleAxiosError(error))
+                .catch(error => {
+                    handleAxiosError(error)
+
+                    // If the sever responded with an error or not request was made, background-sync won't update it later
+                    if (error.response || ! error.request) {
+                        commit('update', { item, ...original })
+                    }
+                })
                 .then(() => commit('setSyncing', false));
         },
 
@@ -133,8 +149,13 @@ export default {
                 .delete('/api/items/' + item.uuid)
                 .catch(error => {
                     handleAxiosError(error);
-                    // Add the item back
-                    commit('addItem', item)
+
+                    // If the sever responded with an error or not request was
+                    // made, background-sync won't remove it later so we need to
+                    // add it back
+                    if (error.response || ! error.request) {
+                        commit('add', item)
+                    }
                 })
                 .then(() => commit('setSyncing', false));
         }
