@@ -1,14 +1,7 @@
 module.exports = {
     cacheId: 'lister',
     importWorkboxFrom: 'local',
-    globDirectory: 'public/',
-    globPatterns: [
-        '**/*.{css,ico,eot,svg,ttf,woff,woff2,png,php,js,json,html,txt}',
-        'images/**/*.{png,jpg,jpeg,gif,bmp,svg}',
-    ],
-    // swSrc: 'src-sw.js',
-    swDest: 'public/sw.js',
-    maximumFileSizeToCacheInBytes: 5000000,
+    swDest: 'sw.js',
     runtimeCaching: [
         {
             urlPattern: '/app',

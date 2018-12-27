@@ -6,6 +6,8 @@
 /public/fonts
 /public/manifest.json
 /public/mix-manifest.json
+/public/workbox-*
+/public/precache-manifest.*
 /public/sw.js
 /storage/*.key
 /vendor

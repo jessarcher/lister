@@ -28,6 +28,7 @@
         "vue-template-compiler": "^2.5.21",
         "vuedraggable": "^2.16.0",
         "vuex": "^3.0.1",
-        "workbox-cli": "^3.6.3"
+        "workbox-cli": "^3.6.3",
+        "workbox-webpack-plugin": "^3.6.3"
     }
 }

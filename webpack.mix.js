@@ -1,5 +1,6 @@
 const mix = require('laravel-mix');
 const tailwindcss = require('tailwindcss');
+const { GenerateSW } = require('workbox-webpack-plugin')
 
 /*
  |--------------------------------------------------------------------------
@@ -11,6 +12,12 @@ const tailwindcss = require('tailwindcss');
  | file for the application as well as bundling up all the JS files.
  |
  */
+
+mix.webpackConfig({
+    plugins: [
+        new GenerateSW(require('./workbox-config.js'))
+    ]
+})
 
 if (mix.inProduction()) {
     mix.disableNotifications();
