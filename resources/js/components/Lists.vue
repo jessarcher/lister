@@ -1,6 +1,6 @@
 <template>
     <div>
-        <button @click="toggleSidebar" class="px-4 py-3 w-4 align-center">
+        <button @click="toggleSidebar" class="px-4 py-3 w-4 text-center">
             <i class="fa fa-times text-white"></i>
         </button>
 
