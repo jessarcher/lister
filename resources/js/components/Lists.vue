@@ -1,8 +1,10 @@
 <template>
     <div>
-        <button @click="toggleSidebar" class="px-4 py-3 w-4 text-center">
-            <i class="fa fa-times text-white"></i>
-        </button>
+        <div class="px-4 py-3">
+            <button @click="toggleSidebar" class="w-4 text-center">
+                <i class="fa fa-times text-white"></i>
+            </button>
+        </div>
 
         <h2 class="uppercase text-xs mx-4 mt-2">
             Lists
