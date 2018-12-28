@@ -1,6 +1,7 @@
 <template>
     <div>
         <the-header></the-header>
+        <div class="h-10"></div>
 
         <the-sidebar></the-sidebar>
 
