@@ -16,7 +16,10 @@ const { GenerateSW } = require('workbox-webpack-plugin')
 mix.webpackConfig({
     plugins: [
         new GenerateSW(require('./workbox-config.js'))
-    ]
+    ],
+    output: {
+        publicPath: '', // Prevent GenerateSW from prefixing the path with an extra slash
+    }
 })
 
 if (mix.inProduction()) {
